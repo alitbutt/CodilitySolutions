@@ -41,20 +41,22 @@ N is an integer within the range [2..100,000];
 each element of array A is an integer within the range [−1,000..1,000].
 Copyright 2009–2021 by Codility Limited. All Rights Reserved.
 
-Result: 
+Result: https://app.codility.com/demo/results/training386R7N-JVU/
 */
 #pragma GCC optimize ("O3")
 #include <bits/stdc++.h>
 using namespace std;
 
 int solution(vector<int> &A) {
-    int i=0, j=A.size()-1;
-    int si=A[i], sj=A[j];
-    while (i < j-1)
-        if (abs((si+A[i+1])-sj) < abs(si-(sj+A[j-1])))
-            si += A[++i];
-        else
-            sj += A[--j];
-
-    return abs(si - sj);
+    vector<int> arr;
+    int sum=0;
+    for(int i : A){
+        arr.push_back(sum);
+        sum+=i;
+    }
+    int diff = INT_MAX;
+    for(size_t i=1; i<arr.size(); i++){
+        diff = (std::abs(sum-2*arr[i])<diff) ? std::abs(sum-2*arr[i]) : diff;
+    }
+    return diff;
 }
